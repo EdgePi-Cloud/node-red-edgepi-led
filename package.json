@@ -20,5 +20,8 @@
       "edgepi-leds": "edgepi-leds.js"
     }
   },
-  "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme"
+  "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme",
+  "dependencies": {
+    "onoff": "^6.0.3"
+  }
 }
