@@ -23,12 +23,7 @@
 1. $ node-red-start
 
 # Using led-trigger-node
-1. Drag and drop the following nodes: inject, led-trigger-node, debug
-2. Connect nodes as follows: inject -> led-trigger-node -> debug
-3. Set inject payload to numeric value: either 0 (OFF) or 1 (ON)
-4. Set led-trigger-node LED number: either 1 or 2
-5. Click deploy
-6. Inject a value using inject node.
+1. Use a dashboard Switch node to feed binary (0 or 1) inputs to led-trigger-node.
 
 # Running Unit Tests
 1. Unit tests are located in edgepi-leds_spec.js and use the mocha testing framework. This should be installed along with other dependencies when $ npm install was run.
