@@ -29,3 +29,9 @@
 4. Set led-trigger-node LED number: either 1 or 2
 5. Click deploy
 6. Inject a value using inject node.
+
+# Running Unit Tests
+1. Unit tests are located in edgepi-leds_spec.js and use the mocha testing framework. This should be installed along with other dependencies when $ npm install was run.
+2. To run unit tests: 
+    * $ cd project_directory
+    * $ npm test

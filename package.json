@@ -4,7 +4,7 @@
   "description": "node for abstracting toggling EdgePi LED lights on/off ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha \"test/edgepi-leds_spec.js\""
   },
   "repository": {
     "type": "git",
@@ -24,5 +24,10 @@
   "dependencies": {
     "jquery": "^3.6.0",
     "onoff": "^6.0.3"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "node-red": "^2.2.2",
+    "node-red-node-test-helper": "^0.2.7"
   }
 }
