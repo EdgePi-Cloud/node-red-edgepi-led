@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme",
   "dependencies": {
+    "jquery": "^3.6.0",
     "onoff": "^6.0.3"
   }
 }
