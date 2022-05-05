@@ -2,15 +2,15 @@
 
 # Installation: Node-Red on Debian
 1. Install a supported version of Node.js: https://nodered.org/docs/faq/node-versions
--$ sudo apt install curl
--$ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
--$ sudo apt install nodejs
--Verify Node.js installed: $ node -v
--Verify npm installed: $ npm -v
+    * $ sudo apt install curl
+    * $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    * $ sudo apt install nodejs
+    * Verify Node.js installed: $ node -v
+    * Verify npm installed: $ npm -v
 
 2. Install Node-Red with npm
--$ Change to home directory: $ cd ~
--$ sudo npm install -g --unsafe-perm node-red
+    * $ Change to home directory: $ cd ~
+    * $ sudo npm install -g --unsafe-perm node-red
 
 # Installation: led-trigger-node
 1. git clone this repository
