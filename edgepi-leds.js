@@ -9,20 +9,23 @@ const ledToPin = {
 module.exports = function(RED) {
     function ledTriggerNode(config) {
         RED.nodes.createNode(this, config);
-        this.led = config.led;
         var node = this;
 
+        // runs when node receives an input
         node.on('input', function(msg) {
-            // build Gpio object at BCM pin corresponding to LED light number
-            ledNum = node.led
+            ledNum = msg.topic;             // LED number to toggle
+            toggleState = msg.payload;      // state to toggle
+
             // toggle LED if LED number is valid
             if (ledNum in ledToPin) {
+                // build Gpio object at BCM pin corresponding to LED light number
                 const outpin = new Gpio(Number(ledToPin[ledNum]), 'out');
-                outpin.writeSync(parseInt(msg.payload))
+                outpin.writeSync(parseInt(toggleState));
             }
             else {
                 node.error(`LED Number ${ledNum} does not exist.`);
             }
+
             node.send(msg);
         });
     }
