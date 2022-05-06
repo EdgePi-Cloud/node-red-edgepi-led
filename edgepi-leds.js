@@ -26,6 +26,8 @@ module.exports = function(RED) {
                 node.error(`LED Number ${ledNum} does not exist.`);
             }
 
+            // add selected GPIO pin to output msg for unit testing
+            msg.pin = Number(ledToPin[ledNum]);
             node.send(msg);
         });
     }
