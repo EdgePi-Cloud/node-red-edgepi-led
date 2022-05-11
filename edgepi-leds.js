@@ -11,6 +11,8 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
         var node = this;
 
+        node.status({fill:"grey", shape:"ring", text:"listening for input"});
+
         // runs when node receives an input
         node.on('input', function(msg) {
             ledNum = msg.topic;                     // LED number to toggle
@@ -22,13 +24,18 @@ module.exports = function(RED) {
                     // build Gpio object at BCM pin corresponding to LED light number
                     const outpin = new Gpio(Number(ledToPin[ledNum]), 'out');
                     outpin.writeSync(toggleState);
+
+                    toggleState === 1 ? node.status({fill:"green", shape:"dot", text:"LED ON"}) :
+                    node.status({fill:"red", shape:"ring", text:"LED OFF"});
                 }
                 else {
                     node.error('led-trigger-node.error: Input must be an integer, either 0 or 1.');
+                    node.status({fill:"yellow", shape:"ring", text:"invalid toggle input"});
                 }
             }
             else {
                 node.error(`led-trigger-node.error: LED ID '${ledNum}' does not exist.`);
+                node.status({fill:"yellow", shape:"ring", text:"invalid LED ID"});
             }
 
             // add selected GPIO pin to output msg for unit testing
