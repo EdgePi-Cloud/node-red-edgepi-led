@@ -45,7 +45,7 @@ describe('led-trigger-node', function () {
             // assert input to n2 not corrupted
             msg.should.have.property('payload', 1);
             msg.should.have.property('topic', 2);
-            // GPIO pin 13 should have been toggled ON
+            // GPIO pin 12 should have been toggled ON
             msg.should.have.property('pin', 12);
             done();
           } catch(err) {

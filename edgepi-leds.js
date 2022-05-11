@@ -3,7 +3,7 @@ const { Gpio } = require( 'onoff' );
 // dict holding LED # : BCM GPIO PIN # pairs
 // Example: '1':'13' maps LEDY C1 to GPIO13 pin
 const ledToPin = {
-    '1':'13', '2':'12'
+    'LED1':'13', 'LED2':'12'
 };
 
 module.exports = function(RED) {
