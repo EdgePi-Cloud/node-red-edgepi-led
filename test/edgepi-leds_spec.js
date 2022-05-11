@@ -44,7 +44,7 @@ describe('led-trigger-node', function () {
           try {
             // assert input to n2 not corrupted
             msg.should.have.property('payload', 1);
-            msg.should.have.property('topic', 2);
+            msg.should.have.property('topic', 'LED2');
             // GPIO pin 12 should have been toggled ON
             msg.should.have.property('pin', 12);
             done();
@@ -53,7 +53,7 @@ describe('led-trigger-node', function () {
           }
         });
         // send instruction to toggle ON LED #2
-        n1.send({payload: 1, topic: 2});
+        n1.send({payload: 1, topic: 'LED2'});
       });
     });
 });
