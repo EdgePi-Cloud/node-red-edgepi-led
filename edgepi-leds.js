@@ -16,7 +16,7 @@ module.exports = function(RED) {
         // runs when node receives an input
         node.on('input', function(msg) {
             ledNum = msg.topic;                     // LED number to toggle
-            toggleState = parseInt(msg.payload);    // state to toggle
+            toggleState = msg.payload;              // state to toggle
 
             // toggle LED if LED number and input are valid
             if (ledNum in ledToPin) {
