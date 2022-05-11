@@ -25,7 +25,7 @@ module.exports = function(RED) {
                     const outpin = new Gpio(Number(ledToPin[ledNum]), 'out');
                     outpin.writeSync(toggleState);
 
-                    toggleState === 1 ? node.status({fill:"green", shape:"dot", text:"LED ON"}) :
+                    toggleState == 1 ? node.status({fill:"green", shape:"dot", text:"LED ON"}) :
                     node.status({fill:"red", shape:"ring", text:"LED OFF"});
                 }
                 else {
