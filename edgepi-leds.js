@@ -20,7 +20,7 @@ module.exports = function(RED) {
 
             // toggle LED if LED number and input are valid
             if (ledNum in ledToPin) {
-                if (toggleState == 1 || toggleState == 0) {
+                if (toggleState === 1 || toggleState === 0) {
                     // build Gpio object at BCM pin corresponding to LED light number
                     const outpin = new Gpio(Number(ledToPin[ledNum]), 'out');
                     outpin.writeSync(toggleState);
