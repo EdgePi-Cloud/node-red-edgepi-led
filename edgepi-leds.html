@@ -1,13 +1,13 @@
 <script type="text/javascript">
     RED.nodes.registerType('led-trigger-node',{
-        category: 'function',
+        category: 'Osensa EdgePi',
         color: '#a6bbcf',
         defaults: {
             name: { value:"" },
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "light.svg",
         label: function() {
             return this.name||"led-trigger-node";
         }
@@ -19,8 +19,56 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+
+    <div class="form-tips" id="dig-tip">
+        <p>Input to this node must conform to the following:</p>
+        <ul>
+            <li>msg.payload: a number, 0 or 1.</li>
+            <li>msg.topic: a string of the form LED#, where # is an integer.</li>
+        </ul>
+        <p>Please see this node's <code>Help</code> section for more details.</p>
+    </div>
 </script>
 
 <script type="text/html" data-help-name="led-trigger-node">
-    <p>A simple node that uses a numeric message payload to toggle an RPi GPIO pin on or off</p>
+    <p>A node for toggling individual LEDs on the EdgePi LED array. Accepts LED 
+        number and a digital value, either 0 or 1, as input.</p>
+
+    <h3>Inputs</h3>
+        <dl class="message-properties">
+            <dt>payload
+                <span class="property-type">number</span>
+            </dt>
+            <dd> Integer value: 0 to turn LED off, 1 to turn LED on.  </dd>
+            <dt>topic
+                <span class="property-type">string</span>
+            </dt>
+            <dd> a string representing the name of the LED to be toggled. Must be of 
+                the form 'LED#', where # is an integer representing the LED number. 
+            </dd>
+        </dl>
+
+    <h3>Outputs</h3>
+        <ol class="node-ports">
+            <li>Standard output
+                <dl class="message-properties">
+                    <dt>payload <span class="property-type">number</span></dt>
+                    <dd>the toggle instruction received, 0 or 1.</dd>
+
+                    <dt>topic <span class="property-type">string</span></dt>
+                    <dd>the LED# of the toggled LED.</dd>
+
+                    <dt>pin <span class="property-type">number</span></dt>
+                    <dd>the GPIO pin that LED# was mapped to.</dd>
+                </dl>
+            </li>
+        </ol>
+
+    <h3>Details</h3>
+        <p><code>msg.payload</code> is used as an input instruction to toggle the LED
+            on or off. This must be a digital value, 0 or 1.
+        </p>
+        <p><code>msg.topic</code> is used as an input instruction for the name of the LED
+        to be toggled. The LED name must be set in the UI switch button wired to this node, 
+        using <code>msg.topic</code>.</p>
 </script>

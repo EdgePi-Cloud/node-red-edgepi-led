@@ -28,7 +28,8 @@
 2. To stop: $ node-red-stop
 
 # Using led-trigger-node
-1. Use a dashboard Switch node to feed binary (0 or 1) inputs to led-trigger-node.
+The led-trigger-node accepts an LED number and a digital value (0 or 1) as input. It can be used with Node-RED dashboard
+nodes such as switch, or any other node that can inject values. Please read this node's Help section in Node-RED.
 
 # Running Unit Tests
 1. Unit tests are located in edgepi-leds_spec.js and use the mocha testing framework. This should be installed along with other dependencies when $ npm install was run during led-trigger-node installation.
