@@ -4,10 +4,12 @@
         color: '#a6bbcf',
         defaults: {
             name: { value:"" },
+            Method: { value: "toggleLed"},
+            LedPin: { value: "LED1" },
         },
         inputs:1,
         outputs:1,
-        icon: "",
+        icon: "light.svg",
         label: function() {
             return this.name||"edgepi-led-node";
         }
@@ -19,7 +21,31 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
+    <div class="form-row">
+        <label for="node-input-Method">Method</label>
+        <select id="node-input-Method">
+          <option value="toggleLed">toggleLed</option>
+          <option value="turnOn">turnOn</option>
+          <option value="turnOff">turnOff</option>
+
+        </select>
+      </div>
+    <div class="form-row">
+        <label for="node-input-LedPin">Pin</label>
+        <select id="node-input-LedPin">
+          <option value="LED1">LED1</option>
+          <option value="LED2">LED2</option>
+          <option value="LED3">LED3</option>
+          <option value="LED4">LED4</option>
+          <option value="LED5">LED5</option>
+          <option value="LED6">LED6</option>
+          <option value="LED7">LED7</option>
+          <option value="LED8">LED8</option>
+        </select>
+      </div>
 </script>
+
+
 
 <script type="text/html" data-help-name="edgepi-led-node">
     <p>Node for EdgePi LED array.</p>

@@ -4,11 +4,20 @@ module.exports = function(RED) {
     function LEDNode(config) {
         RED.nodes.createNode(this, config);
         const node = this;
-        const led = new rpc.LEDService()
-        this.on('input', async function (msg, send, done) {
+        node.LedPin = config.LedPin;
+        node.Method = config.Method;
+        const led = new rpc.LEDService();
+
+        console.log(node.Method, node.Pin)
+
+        if (led !== null){
+            node.status({fill:"green", shape:"ring", text:"led initialized"});
+        }
+        node.on('input', async function (msg, send, done) {
             try{
-                let response = await led.toggleLed(rpc.LEDPins.LED1);
+                let response = await led[node.Method](rpc.LEDPins[node.LedPin]);
                 msg.payload = response;
+                node.status({fill:"green", shape:"dot", text:"input recieved"});
             }
             catch(err) {
                 console.error(err);
@@ -20,7 +29,6 @@ module.exports = function(RED) {
                 done();
             }
         })
-
 
         // handle exit
         node.on("close", function(done) {
