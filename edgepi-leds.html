@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('led-trigger-node',{
+    RED.nodes.registerType('edgepi-led-node',{
         category: 'function',
         color: '#a6bbcf',
         defaults: {
@@ -7,20 +7,20 @@
         },
         inputs:1,
         outputs:1,
-        icon: "file.png",
+        icon: "",
         label: function() {
-            return this.name||"led-trigger-node";
+            return this.name||"edgepi-led-node";
         }
     });
 </script>
 
-<script type="text/html" data-template-name="led-trigger-node">
+<script type="text/html" data-template-name="edgepi-led-node">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/html" data-help-name="led-trigger-node">
-    <p>A simple node that uses a numeric message payload to toggle an RPi GPIO pin on or off</p>
+<script type="text/html" data-help-name="edgepi-led-node">
+    <p>Node for EdgePi LED array.</p>
 </script>

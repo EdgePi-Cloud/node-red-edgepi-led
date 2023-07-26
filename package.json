@@ -1,17 +1,15 @@
 {
   "name": "node-red-edgepi-led-array",
   "version": "1.0.0",
-  "description": "node for abstracting toggling EdgePi LED lights on/off ",
+  "description": "Node for EdgePi Led Array",
   "main": "index.js",
-  "scripts": {
-    "test": "mocha \"test/edgepi-leds_spec.js\""
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/osensa/node-red-edgepi-led-array.git"
   },
-  "author": "flavius-t",
-  "license": "ISC",
+  "author": "Isaac James",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/osensa/node-red-edgepi-led-array/issues"
   },
@@ -22,12 +20,10 @@
   },
   "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme",
   "dependencies": {
-    "jquery": "^3.6.0",
-    "onoff": "^6.0.3"
+    "@edgepi-cloud/edgepi-rpc": "^1.0.1",
+    "zeromq": "^6.0.0-beta.17"
   },
   "devDependencies": {
-    "mocha": "^10.0.0",
-    "node-red": "^2.2.2",
-    "node-red-node-test-helper": "^0.2.7"
+    "node-red": "^2.2.2"
   }
 }

@@ -1,18 +1,18 @@
 module.exports = function(RED) {
     const rpc = require("@edgepi-cloud/edgepi-rpc")
 
-    function ThermocoupleNode(config) {
+    function LEDNode(config) {
         RED.nodes.createNode(this, config);
         const node = this;
-        const tc = new rpc.TcService()
+        const led = new rpc.LEDService()
         this.on('input', async function (msg, send, done) {
             try{
-                let temps = await tc.singleSample();
-                msg.payload = temps;
+                let response = await led.toggleLed(rpc.LEDPins.LED1);
+                msg.payload = response;
             }
             catch(err) {
                 console.error(err);
-                msg.payload = 'Wait! Only one RPC send operation may be in progress at any time'
+                msg.payload = 'Wait! Only one RPC send operation for a given service may be in progress at any time'
             }
             
             send(msg);
@@ -24,10 +24,10 @@ module.exports = function(RED) {
 
         // handle exit
         node.on("close", function(done) {
-            node.status({fill:"grey", shape:"ring", text:"tc terminated"});
+            node.status({fill:"grey", shape:"ring", text:"led terminated"});
             
              done();
         });
     }
-    RED.nodes.registerType("edgepi-thermocouple-node", ThermocoupleNode);
+    RED.nodes.registerType("edgepi-led-node", LEDNode);
 }
