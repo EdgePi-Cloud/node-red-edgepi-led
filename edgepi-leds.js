@@ -4,26 +4,34 @@ module.exports = function(RED) {
     function LEDNode(config) {
         RED.nodes.createNode(this, config);
         const node = this;
+        node.ConfigStyle = config.ConfigStyle;
         node.LedPin = config.LedPin;
         node.Method = config.Method;
         const led = new rpc.LEDService();
 
-        console.log(node.Method, node.Pin)
+        console.log(node.Method, node.LedPin)
 
         if (led !== null){
             node.status({fill:"green", shape:"ring", text:"led initialized"});
         }
         node.on('input', async function (msg, send, done) {
+            node.status({fill:"green", shape:"dot", text:"input recieved"});
+            // Check if on ReceiveInput
+            if(node.ConfigStyle == "ReceiveInput"){
+                node.Method = msg.payload.Method;
+                node.LedPin = msg.payload.LedPin;
+            }
+            // Send method call
             try{
                 let response = await led[node.Method](rpc.LEDPins[node.LedPin]);
                 msg.payload = response;
-                node.status({fill:"green", shape:"dot", text:"input recieved"});
+                
             }
             catch(err) {
                 console.error(err);
-                msg.payload = 'Wait! Only one RPC send operation for a given service may be in progress at any time'
+                msg.payload = err;
             }
-            
+            // Send message payload
             send(msg);
             if (done) {
                 done();
