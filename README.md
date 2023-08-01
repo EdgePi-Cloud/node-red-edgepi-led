@@ -2,17 +2,21 @@
 
 # Installation: Node-Red on Debian
 1. Install a supported version of Node.js: https://nodered.org/docs/faq/node-versions
-    * $ sudo apt install curl
-    * $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-    * $ sudo apt install nodejs
-    * Verify Node.js installed: $ node -v
-    * Verify npm installed: $ npm -v
-
-2. Install Node-Red with npm
-    * $ Change to home directory: $ cd ~
+```
+    $ sudo apt install curl
+    $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    $ sudo apt install nodejs
+```
+   Verify Node.js installed: 
+```$ node -v```
+   Verify npm installed: 
+```$ npm -v```
+3. Install Node-Red with npm
+    * $ Change to home directory: 
+    ```$ cd ~```
     * $ sudo npm install -g --unsafe-perm node-red
 
-3. Install Node Red Dashboard
+4. Install Node Red Dashboard
     * $ cd ~/.node-red
     * $ npm i node-red-dashboard
 
