@@ -1,5 +1,5 @@
 {
-  "name": "node-red-edgepi-led",
+  "name": "@edgepi-cloud/node-red-edgepi-led",
   "version": "1.0.0",
   "description": "Node for EdgePi Led Array",
   "main": "index.js",
