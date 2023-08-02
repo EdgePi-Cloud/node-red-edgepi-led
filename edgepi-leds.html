@@ -4,6 +4,7 @@
         color: '#a6bbcf',
         defaults: {
             name: { value:"" },
+            transport: { value: "Local" },
             ConfigStyle: { value: "Editor" },
             Method: { value: "toggleLed"},
             LedPin: { value: "LED1" }
@@ -17,42 +18,107 @@
         oneditprepare: function(){
             // Query html elements
             const configStyleSelect = document.getElementById("node-input-ConfigStyle");
+            const configTransportSelect = document.getElementById("node-input-transport");
+            const tcpField = document.querySelector(".form-row.tcp")
             const methodRow = document.querySelector(".form-row.Method");
             const ledPinRow = document.querySelector(".form-row.LEDPin");
             const receiveInputInfo = document.querySelector(".ReceiveInput-INFO-Container")
 
             function updateEditor(){
                 if (configStyleSelect.value === "Editor") {
-                    methodRow.style.display = "block";
-                    ledPinRow.style.display = "block";
+                    methodRow.style.display = "flex";
+                    ledPinRow.style.display = "flex";
                     receiveInputInfo.style.display = "none";
                 } else {
                     methodRow.style.display = "none";
                     ledPinRow.style.display = "none";
                     receiveInputInfo.style.display = "block"
                 }
+                if(configTransportSelect.value === "Network"){
+                    tcpField.style.display = "flex";
+                } else {
+                    tcpField.style.display = "none";
+                }
             }
             // Update and add event listener to update on user input
             updateEditor()
             configStyleSelect.addEventListener("change", updateEditor);
+            configTransportSelect.addEventListener("change", updateEditor);
         }
     });
 </script>
 
 <script type="text/html" data-template-name="edgepi-led-node">
+    <style>
+        *{
+            box-sizing: border-box !important;
+        }
+
+        .form-row{
+            display: flex;
+            align-items: center;
+        }
+
+        .form-row>label{
+            margin-top: auto; margin-bottom: auto;
+        }
+
+        .form-row.tcp {
+            flex-direction: row;
+            align-items: center;
+            margin-top: -5px; margin-bottom: 10px;
+        }
+
+        .tcp-address-label{
+            width: 30px !important;
+            margin: auto 2px auto 102px;
+        }
+        .tcp-address-input{
+            width: 110px !important;
+        }
+        .tcp-port-input{
+            width: 60px !important;
+        }
+
+        .tcp-port-label{
+            width: 5px !important;
+            margin: auto 5px;
+        }
+
+        .RecieveInput-INFO {
+            background-color: #d8d8d8; 
+            padding: 5px !important; 
+            border-radius: 3px;
+        }
+    </style>
+
+
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-    <div class="form-row ConfigStyle" style="display: flex; flex-direction: row;">
+    <div class="form-row transport">
+        <label for="node-input-transport">Transport Protocol: </label>
+        <select id="node-input-transport">
+          <option value="Local">Local</option>
+          <option value="Network">Network</option>
+        </select>
+      </div>
+      <div class="form-row tcp" >
+        <label class="tcp-address-label" for="tcp-address">tcp://</label>	
+        <input class ="tcp-address-input" type="text" id="tcp-address" placeholder="Address">
+        <label class="tcp-port-label" for="tcp-port">:</label>
+        <input class="tcp-port-input" type="text" id="tcp-port" placeholder="Port">
+    </div>
+    <div class="form-row ConfigStyle">
         <label for="node-input-ConfigStyle">Configuration style: </label>
         <select id="node-input-ConfigStyle">
           <option value="Editor">Editor</option>
           <option value="ReceiveInput">Receive input</option>
         </select>
       </div>
-    <div class="ReceiveInput-INFO-Container" style="display: none;">
-        <p class="ReceiveInput-INFO" style="background-color: #d8d8d8; padding: 5px !important; border-radius: 3px;">
+    <div class="ReceiveInput-INFO-Container">
+        <p class="ReceiveInput-INFO">
             Input received from messages will trigger an LED method based off of the method and arguments supplied. To correctly trigger an LED
             method, the message received muse be in JSON format, specifying the method name and arguments. For example, the following
             would be valid: {"Method": "toggleLed", "LedPin": "LED1"}
