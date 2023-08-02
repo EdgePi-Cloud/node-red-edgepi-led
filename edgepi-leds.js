@@ -7,7 +7,7 @@ module.exports = function(RED) {
         node.ConfigStyle = config.ConfigStyle;
         node.LedPin = config.LedPin;
         node.Method = config.Method;
-        const led = new rpc.LEDService();
+        const led = new rpc.LEDService('ipc:///tmp/edgepi.pipe');
 
         console.log(node.Method, node.LedPin)
 
