@@ -20,8 +20,7 @@
   },
   "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme",
   "dependencies": {
-    "@edgepi-cloud/edgepi-rpc": "^1.0.1",
-    "zeromq": "^6.0.0-beta.17"
+    "@edgepi-cloud/edgepi-rpc": "^1.0.1"
   },
   "devDependencies": {
     "node-red": "^2.2.2"
