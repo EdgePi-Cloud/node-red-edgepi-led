@@ -6,19 +6,19 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/osensa/node-red-edgepi-led-array.git"
+    "url": "git+https://github.com/EdgePi-Cloud/node-red-edgepi-led.git"
   },
   "author": "Isaac James",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/osensa/node-red-edgepi-led-array/issues"
+    "url": "https://github.com/EdgePi-Cloud/node-red-edgepi-led/issues"
   },
   "node-red": {
     "nodes": {
       "edgepi-leds": "edgepi-leds.js"
     }
   },
-  "homepage": "https://github.com/osensa/node-red-edgepi-led-array#readme",
+  "homepage": "https://github.com/EdgePi-Cloud/node-red-edgepi-led#readme",
   "dependencies": {
     "@edgepi-cloud/edgepi-rpc": "^1.0.1"
   },
