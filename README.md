@@ -29,7 +29,7 @@ $ npm i node-red-dashboard
 
 ## Installation of this node
 ```
-$ npm install node-red-edgepi-led
+$ npm install @edgepi-cloud/node-red-edgepi-led
 ```
 
 ## Running Node-Red
