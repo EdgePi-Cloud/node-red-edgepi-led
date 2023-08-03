@@ -1,38 +1,38 @@
-# node-red-edgepi-led-array
+# node-red-edgepi-led
 
-# Installation: Node-Red on Debian
-1. Install a supported version of Node.js: https://nodered.org/docs/faq/node-versions
-    * $ sudo apt install curl
-    * $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-    * $ sudo apt install nodejs
-    * Verify Node.js installed: $ node -v
-    * Verify npm installed: $ npm -v
+## Installation: Node-Red on Debian
+Install a supported version of Node.js: https://nodered.org/docs/faq/node-versions
+```
+    $ sudo apt install curl
+    $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    $ sudo apt install nodejs
+```
+   Verify Node.js installed: 
+```
+$ node -v
+```
+   Verify npm installed: 
+```
+$ npm -v
+```
+3. Install Node-Red with npm
+```
+$ cd ~
+$ sudo npm install -g --unsafe-perm node-red
+```
 
-2. Install Node-Red with npm
-    * $ Change to home directory: $ cd ~
-    * $ sudo npm install -g --unsafe-perm node-red
+4. Install Node Red Dashboard
+```
+$ cd ~/.node-red
+$ npm i node-red-dashboard
+```
 
-3. Install Node Red Dashboard
-    * $ cd ~/.node-red
-    * $ npm i node-red-dashboard
+## Installation of this node
+```
+$ npm install @edgepi-cloud/node-red-edgepi-led
+```
 
-# Installation: led-trigger-node
-1. git clone this repository
-2. Change to project directory: $ cd node-red-edgepi-led-array
-3. Install dependencies: $ npm install
-4. Change to .node-red directory: $ ~/.node-red
-5. $ npm install path_to_node-red-edgepi-led-array
-
-# Running Node-Red
-1. To start: $ node-red-start
-2. To stop: $ node-red-stop
-
-# Using led-trigger-node
-The led-trigger-node accepts an LED number and a digital value (0 or 1) as input. It can be used with Node-RED dashboard
-nodes such as switch, or any other node that can inject values. Please read this node's Help section in Node-RED.
-
-# Running Unit Tests
-1. Unit tests are located in edgepi-leds_spec.js and use the mocha testing framework. This should be installed along with other dependencies when $ npm install was run during led-trigger-node installation.
-2. To run unit tests: 
-    * $ cd project_directory
-    * $ npm test
+## Running Node-Red
+```
+$ node-red
+```

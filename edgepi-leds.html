@@ -1,74 +1,89 @@
 <script type="text/javascript">
-    RED.nodes.registerType('led-trigger-node',{
+    RED.nodes.registerType('edgepi-led-node',{
         category: 'Osensa EdgePi',
         color: '#a6bbcf',
         defaults: {
             name: { value:"" },
+            ConfigStyle: { value: "Editor" },
+            Method: { value: "toggleLed"},
+            LedPin: { value: "LED1" }
         },
         inputs:1,
         outputs:1,
         icon: "light.svg",
         label: function() {
-            return this.name||"led-trigger-node";
+            return this.name||"edgepi-led-node";
+        },
+        oneditprepare: function(){
+            // Query html elements
+            const configStyleSelect = document.getElementById("node-input-ConfigStyle");
+            const methodRow = document.querySelector(".form-row.Method");
+            const ledPinRow = document.querySelector(".form-row.LEDPin");
+            const receiveInputInfo = document.querySelector(".ReceiveInput-INFO-Container")
+
+            function updateEditor(){
+                if (configStyleSelect.value === "Editor") {
+                    methodRow.style.display = "block";
+                    ledPinRow.style.display = "block";
+                    receiveInputInfo.style.display = "none";
+                } else {
+                    methodRow.style.display = "none";
+                    ledPinRow.style.display = "none";
+                    receiveInputInfo.style.display = "block"
+                }
+            }
+            // Update and add event listener to update on user input
+            updateEditor()
+            configStyleSelect.addEventListener("change", updateEditor);
         }
     });
 </script>
 
-<script type="text/html" data-template-name="led-trigger-node">
+<script type="text/html" data-template-name="edgepi-led-node">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-
-    <div class="form-tips" id="dig-tip">
-        <p>Input to this node must conform to the following:</p>
-        <ul>
-            <li>msg.payload: a number, 0 or 1.</li>
-            <li>msg.topic: a string of the form LED#, where # is an integer.</li>
-        </ul>
-        <p>Please see this node's <code>Help</code> section for more details.</p>
+    <div class="form-row ConfigStyle" style="display: flex; flex-direction: row;">
+        <label for="node-input-ConfigStyle">Configuration style: </label>
+        <select id="node-input-ConfigStyle">
+          <option value="Editor">Editor</option>
+          <option value="ReceiveInput">Receive input</option>
+        </select>
+      </div>
+    <div class="ReceiveInput-INFO-Container" style="display: none;">
+        <p class="ReceiveInput-INFO" style="background-color: #d8d8d8; padding: 5px !important; border-radius: 3px;">
+            Input received from messages will trigger an LED method based off of the method and arguments supplied. To correctly trigger an LED
+            method, the message received muse be in JSON format, specifying the method name and arguments. For example, the following
+            would be valid: {"Method": "toggleLed", "LedPin": "LED1"}
+        </p>
     </div>
+    <div class="form-row Method">
+        <label for="node-input-Method">Method</label>
+        <select id="node-input-Method">
+          <option value="toggleLed">toggleLed</option>
+          <option value="turnOn">turnOn</option>
+          <option value="turnOff">turnOff</option>
+
+        </select>
+      </div>
+    <div class="form-row LEDPin">
+        <label for="node-input-LedPin">Pin</label>
+        <select id="node-input-LedPin">
+          <option value="LED1">LED1</option>
+          <option value="LED2">LED2</option>
+          <option value="LED3">LED3</option>
+          <option value="LED4">LED4</option>
+          <option value="LED5">LED5</option>
+          <option value="LED6">LED6</option>
+          <option value="LED7">LED7</option>
+          <option value="LED8">LED8</option>
+        </select>
+      </div>
 </script>
 
-<script type="text/html" data-help-name="led-trigger-node">
-    <p>A node for toggling individual LEDs on the EdgePi LED array. Accepts LED 
-        number and a digital value, either 0 or 1, as input.</p>
 
-    <h3>Inputs</h3>
-        <dl class="message-properties">
-            <dt>payload
-                <span class="property-type">number</span>
-            </dt>
-            <dd> Integer value: 0 to turn LED off, 1 to turn LED on.  </dd>
-            <dt>topic
-                <span class="property-type">string</span>
-            </dt>
-            <dd> a string representing the name of the LED to be toggled. Must be of 
-                the form 'LED#', where # is an integer representing the LED number. 
-            </dd>
-        </dl>
 
-    <h3>Outputs</h3>
-        <ol class="node-ports">
-            <li>Standard output
-                <dl class="message-properties">
-                    <dt>payload <span class="property-type">number</span></dt>
-                    <dd>the toggle instruction received, 0 or 1.</dd>
-
-                    <dt>topic <span class="property-type">string</span></dt>
-                    <dd>the LED# of the toggled LED.</dd>
-
-                    <dt>pin <span class="property-type">number</span></dt>
-                    <dd>the GPIO pin that LED# was mapped to.</dd>
-                </dl>
-            </li>
-        </ol>
-
-    <h3>Details</h3>
-        <p><code>msg.payload</code> is used as an input instruction to toggle the LED
-            on or off. This must be a digital value, 0 or 1.
-        </p>
-        <p><code>msg.topic</code> is used as an input instruction for the name of the LED
-        to be toggled. The LED name must be set in the UI switch button wired to this node, 
-        using <code>msg.topic</code>.</p>
+<script type="text/html" data-help-name="edgepi-led-node">
+    <p>Node for EdgePi LED array.</p>
 </script>
