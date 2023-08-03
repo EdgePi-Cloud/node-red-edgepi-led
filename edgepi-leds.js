@@ -7,13 +7,17 @@ module.exports = function(RED) {
         node.ConfigStyle = config.ConfigStyle;
         node.LedPin = config.LedPin;
         node.Method = config.Method;
-        const led = new rpc.LEDService();
+        const ipc_transport = "ipc:///tmp/edgepi.pipe"
+        const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`
+        const transport = (config.transport === "Network") ? tcp_transport : ipc_transport;
 
-        console.log(node.Method, node.LedPin)
+        const led = new rpc.LEDService(transport);
 
-        if (led !== null){
+        if (led){
+            console.debug("LED node initialized transport on: ", transport);
             node.status({fill:"green", shape:"ring", text:"led initialized"});
         }
+
         node.on('input', async function (msg, send, done) {
             node.status({fill:"green", shape:"dot", text:"input recieved"});
             // Check if on ReceiveInput
