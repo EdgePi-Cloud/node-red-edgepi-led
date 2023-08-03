@@ -9,7 +9,7 @@ module.exports = function(RED) {
         node.Method = config.Method;
         const ipc_transport = "ipc:///tmp/edgepi.pipe"
         const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`
-        const transport = tcp_transport ? (config.transport === "Network") :ipc_transport;
+        const transport = (config.transport === "Network") ? tcp_transport : ipc_transport;
 
         const led = new rpc.LEDService(transport);
 
