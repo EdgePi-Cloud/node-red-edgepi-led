@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/EdgePi-Cloud/node-red-edgepi-led#readme",
   "dependencies": {
-    "@edgepi-cloud/edgepi-rpc": "^1.0.1"
+    "@edgepi-cloud/edgepi-rpc": "^1.0.3"
   },
   "devDependencies": {
     "node-red": "^2.2.2"
