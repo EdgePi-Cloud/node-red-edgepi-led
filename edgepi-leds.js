@@ -2,6 +2,7 @@ module.exports = function(RED) {
     const rpc = require("@edgepi-cloud/edgepi-rpc")
 
     function LEDNode(config) {
+        // Create node with user config
         RED.nodes.createNode(this, config);
         const node = this;
         node.ConfigStyle = config.ConfigStyle;
@@ -11,13 +12,14 @@ module.exports = function(RED) {
         const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`
         const transport = (config.transport === "Network") ? tcp_transport : ipc_transport;
 
+        // Init new led
         const led = new rpc.LEDService(transport);
-
         if (led){
-            console.debug("LED node initialized transport on: ", transport);
+            console.debug("LED node initialized on:", transport);
             node.status({fill:"green", shape:"ring", text:"led initialized"});
         }
 
+        // Input event listener
         node.on('input', async function (msg, send, done) {
             node.status({fill:"green", shape:"dot", text:"input recieved"});
             // Check if on ReceiveInput
