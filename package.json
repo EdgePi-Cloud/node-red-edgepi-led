@@ -1,6 +1,6 @@
 {
   "name": "@edgepi-cloud/node-red-edgepi-led",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Node for EdgePi Led Array",
   "main": "index.js",
   "scripts": {},
@@ -24,5 +24,11 @@
   },
   "devDependencies": {
     "node-red": "^2.2.2"
-  }
+  },
+  "keywords": [
+    "node-red",
+    "edgepi",
+    "led",
+    "edgepi-led"
+  ]
 }
