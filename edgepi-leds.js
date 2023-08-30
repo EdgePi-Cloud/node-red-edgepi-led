@@ -25,7 +25,7 @@ module.exports = function(RED) {
                 const ledPin = (config.config === "Editor") ? config.ledPin : msg.payload.ledPin;
 
                 // Call method through RPC
-                let response = await led[method](rpc.LEDPins[ledPin]);
+                const response = await led[method](rpc.LEDPins[ledPin]);
                 msg.payload = response;
                 
             }
