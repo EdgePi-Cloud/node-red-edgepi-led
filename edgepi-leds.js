@@ -5,9 +5,6 @@ module.exports = function(RED) {
         // Create node with user config
         RED.nodes.createNode(this, config);
         const node = this;
-        node.ConfigStyle = config.ConfigStyle;
-        node.LedPin = config.LedPin;
-        node.Method = config.Method;
         const ipc_transport = "ipc:///tmp/edgepi.pipe"
         const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`
         const transport = (config.transport === "Network") ? tcp_transport : ipc_transport;
@@ -22,14 +19,13 @@ module.exports = function(RED) {
         // Input event listener
         node.on('input', async function (msg, send, done) {
             node.status({fill:"green", shape:"dot", text:"input recieved"});
-            // Check if on ReceiveInput
-            if(node.ConfigStyle == "ReceiveInput"){
-                node.Method = msg.payload.Method;
-                node.LedPin = msg.payload.LedPin;
-            }
-            // Send method call
             try{
-                let response = await led[node.Method](rpc.LEDPins[node.LedPin]);
+                // Get configurations
+                const method = (config.config === "Editor") ? config.method : msg.topic;
+                const ledPin = (config.config === "Editor") ? config.ledPin : msg.payload.ledPin;
+
+                // Call method through RPC
+                const response = await led[method](rpc.LEDPins[ledPin]);
                 msg.payload = response;
                 
             }

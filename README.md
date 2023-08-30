@@ -1,38 +1,33 @@
 # node-red-edgepi-led
 
-## Installation: Node-Red on Debian
-Install a supported version of Node.js: https://nodered.org/docs/faq/node-versions
-```
-    $ sudo apt install curl
-    $ curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-    $ sudo apt install nodejs
-```
-   Verify Node.js installed: 
-```
-$ node -v
-```
-   Verify npm installed: 
-```
-$ npm -v
-```
-3. Install Node-Red with npm
-```
-$ cd ~
-$ sudo npm install -g --unsafe-perm node-red
-```
+## EdgePi LED node that changes the state of LEDs on the EdgePi.
 
-4. Install Node Red Dashboard
+## Install
+Install normally through the node-red editor or install with npm in your node-red directory
+(typically located  at `~/node.red`) by running the following command:
 ```
-$ cd ~/.node-red
-$ npm i node-red-dashboard
+npm install @edgepi-cloud/node-red-edgepi-led
 ```
+## Properties
 
-## Installation of this node
-```
-$ npm install @edgepi-cloud/node-red-edgepi-led
-```
+**RPC Server** <br>
+The connection to your EdgePi's RPC Server.
 
-## Running Node-Red
-```
-$ node-red
-```
+**Configure with**<br>
+Whether to configure LEDs based on configurations from the editor or from input received in the flow.
+
+## Inputs
+
+- When configuration is set to the editor:
+  Any message can be used to trigger this node.
+
+- When configuration is set to input received:
+  - **topic** (*string*)<br>
+  The name of the EdgePi LED method you want to call.
+  - **payload** (*JSON* `{"argName":"argValue"..}`)<br>
+A JSON object consisting of the method's argument parameters as properties and their respective values.
+
+## Outputs
+
+- **payload** (*string*)<br>
+A success message stating the configuration of the given LED.
