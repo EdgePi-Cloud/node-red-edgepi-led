@@ -1,6 +1,6 @@
 {
   "name": "@edgepi-cloud/node-red-edgepi-led",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node for EdgePi Led Array",
   "main": "index.js",
   "scripts": {},
@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/EdgePi-Cloud/node-red-edgepi-led#readme",
   "dependencies": {
-    "@edgepi-cloud/edgepi-rpc": "^1.0.6"
+    "@edgepi-cloud/edgepi-rpc": "^1.0.10"
   },
   "devDependencies": {
     "node-red": "^2.2.2"
