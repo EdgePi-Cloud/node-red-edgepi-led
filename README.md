@@ -31,3 +31,7 @@ A JSON object consisting of the method's argument parameters as properties and t
 
 - **payload** (*string*)<br>
 A success message stating the configuration of the given LED.
+
+
+**NOTE:** Currently, EdgePi nodes are only available on x86 systems.
+
