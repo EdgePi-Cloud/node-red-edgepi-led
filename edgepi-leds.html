@@ -1,7 +1,7 @@
 <script type="text/javascript">
-    RED.nodes.registerType('edgepi-led-node',{
-        category: 'Osensa EdgePi',
-        color: '#a6bbcf',
+    RED.nodes.registerType('led',{
+        category: 'EdgePi',
+        color: '#f391aa',
         defaults: {
             name: { value:"" },
             transport: { value: "Local" },
@@ -15,7 +15,7 @@
         outputs:1,
         icon: "light.svg",
         label: function() {
-            return this.name||"edgepi-led-node";
+            return this.name||"led";
         },
         oneditprepare: function(){
             // Query html elements
@@ -39,7 +39,7 @@
     });
 </script>
 
-<script type="text/html" data-template-name="edgepi-led-node">
+<script type="text/html" data-template-name="led">
     <style>
         *{
             box-sizing: border-box !important;
@@ -61,7 +61,7 @@
         }
 
         .tcp-address-input{
-            width: 110px !important;
+            width: 160px !important;
             margin-left: 100px !important;
         }
         .tcp-port-input{
@@ -82,18 +82,18 @@
 
 
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name:</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row transport">
-        <label for="node-input-transport">Rpc Server:</label>
+        <label for="node-input-transport">RPC Server:</label>
         <select id="node-input-transport">
           <option value="Local">Local</option>
           <option value="Network">Network</option>
         </select>
       </div>
       <div class="form-row tcp" >
-        <input class ="tcp-address-input" type="text" id="node-input-tcpAddress" placeholder="IP Address">
+        <input class ="tcp-address-input" type="text" id="node-input-tcpAddress" placeholder="IP Address/ Hostname">
         <label class="tcp-port-label" for="node-input-tcpPort">:</label>
         <input class="tcp-port-input" type="text" id="node-input-tcpPort" placeholder="Port">
     </div>
@@ -105,7 +105,7 @@
         </select>
       </div>
     <div class="form-row method">
-        <label for="node-input-method">Method</label>
+        <label for="node-input-method">Method:</label>
         <select id="node-input-method">
           <option value="toggleLed">toggleLed</option>
           <option value="turnOn">turnOn</option>
@@ -129,14 +129,16 @@
 </script>
 
 
-<script type="text/html" data-help-name="edgepi-led-node">
-	<p>EdgePi LED node that changes the state of LEDs on the EdgePi.</p>
+<script type="text/html" data-help-name="led">
+	<p>Changes the state of a single LED on the EdgePi.</p>
 	<h3>Properties</h3>
 	<dl class="message-properties">
 		<dt> RPC Server</dt>
 		<dd>The connection to your EdgePi's RPC Server. </dd>
 		<dt >Configure with</dt>
 		<dd>Whether to configure LEDs based off configurations from the editor or from input received in the flow.</dd>
+        <dt>Method</dt>
+        <dd>Whether to turn the LED on, turn the LED off, or toggle the LED</dd>
 	</dl>
 	<h3>Inputs</h3>
         <p>• When configuration is set to the editor:</p>

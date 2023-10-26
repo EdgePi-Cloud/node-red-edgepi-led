@@ -47,5 +47,5 @@ module.exports = function(RED) {
              done();
         });
     }
-    RED.nodes.registerType("edgepi-led-node", LEDNode);
+    RED.nodes.registerType("led", LEDNode);
 }
