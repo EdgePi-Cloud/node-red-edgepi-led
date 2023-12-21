@@ -23,7 +23,7 @@ The LED pin on which to change state.
 Example input configuration:
 ```
 msg {
-  "payload": "on",
+  "payload": true,
   "pin": 1
 }
 ```
@@ -33,4 +33,9 @@ msg {
 - **payload** (*string*)<br>
 A success message stating the configuration of the given LED.
 
-
+Example output:
+``````
+msg {
+  "payload": "Successfully turned on LEDPins.LED1."
+}
+```

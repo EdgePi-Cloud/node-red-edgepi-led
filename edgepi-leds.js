@@ -4,31 +4,30 @@ module.exports = function (RED) {
   function LEDNode(config) {
     RED.nodes.createNode(this, config);
     const node = this;
+    let { ledState, ledPin } = config;
 
-    setInitialConfigs(config).then((led) => {
+    initializeNode(config).then((led) => {
       node.on("input", async function (msg, send, done) {
         node.status({ fill: "green", shape: "dot", text: "input received" });
         try {
-          const state = msg.payload === "on" ? "turnOn" : "turnOff";
-          const ledPin = "LED" + msg.pin.toString();
-          msg.payload = await led[state](rpc.LEDPins[ledPin]);
-        } catch (err) {
-          console.error(err);
-          msg.payload = err;
+          ledPin = msg.pin ?? ledPin;
+          ledState = msg.payload ?? ledState;
+          const stateStr = ledState === true ? "turnOn" : "turnOff";
+          msg = {payload: await led[stateStr](ledPin-1)};
+        } catch (error) {
+          console.error(error);
+          msg = {payload: error};
         }
         send(msg);
-        if (done) {
-          done();
-        }
+        done?.();
       });
     });
 
-    async function setInitialConfigs(config) {
-      const ipc_transport = "ipc:///tmp/edgepi.pipe";
-      const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`;
+    async function initializeNode(config) {
       const transport =
-        config.transport === "Network" ? tcp_transport : ipc_transport;
-
+        config.transport === "Network"
+          ? `tcp://${config.tcpAddress}:${config.tcpPort}`
+          : "ipc:///tmp/edgepi.pipe";
       try {
         const led = new rpc.LEDService(transport);
         console.info("LED node initialized on:", transport);
@@ -37,7 +36,8 @@ module.exports = function (RED) {
           shape: "ring",
           text: "led initialized",
         });
-        await led[config.ledState](rpc.LEDPins[config.ledPin]);
+        const stateStr = ledState === true ? "turnOn" : "turnOff";
+        console.info(await led[stateStr](ledPin-1));
         return led;
       } catch (error) {
         console.error(error);

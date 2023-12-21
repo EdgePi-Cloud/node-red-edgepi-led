@@ -5,8 +5,8 @@
     defaults: {
       name: { value: "" },
       transport: { value: "Local" },
-      ledState: { value: "turnOn" },
-      ledPin: { value: "LED1" },
+      ledState: { value: true },
+      ledPin: { value: 1 },
       tcpAddress: { value: "" },
       tcpPort: { value: "" },
     },
@@ -26,7 +26,7 @@
       const ledOn = document.getElementById("node-input-turnOn");
       const ledOff = document.getElementById("node-input-turnOff");
 
-      if (this.ledState == "turnOn") {
+      if (this.ledState == true) {
         ledOn.checked = true;
       } else {
         ledOff.checked = true;
@@ -43,8 +43,8 @@
     },
     oneditsave: function () {
       this.ledState = document.getElementById("node-input-turnOn").checked
-        ? "turnOn"
-        : "turnOff";
+        ? true
+        : false;
     },
   });
 </script>
@@ -94,12 +94,6 @@
       width: 60px !important;
     }
 
-    /* figure out what this is doing */
-    .RecieveInput-INFO {
-      background-color: #d8d8d8;
-      padding: 5px !important;
-      border-radius: 3px;
-    }
   </style>
 
   <div class="form-row">
@@ -149,14 +143,14 @@
   <div class="form-row ledPin">
     <label for="node-input-ledPin">Pin</label>
     <select id="node-input-ledPin">
-      <option value="LED1">LED1</option>
-      <option value="LED2">LED2</option>
-      <option value="LED3">LED3</option>
-      <option value="LED4">LED4</option>
-      <option value="LED5">LED5</option>
-      <option value="LED6">LED6</option>
-      <option value="LED7">LED7</option>
-      <option value="LED8">LED8</option>
+      <option value=1>LED1</option>
+      <option value=2>LED2</option>
+      <option value=3>LED3</option>
+      <option value=4>LED4</option>
+      <option value=5>LED5</option>
+      <option value=6>LED6</option>
+      <option value=7>LED7</option>
+      <option value=8>LED8</option>
     </select>
   </div>
 </script>
@@ -174,11 +168,11 @@
   <h3>Inputs</h3>
   <dd>
     Initial configurations set in the editor are applied once the node is
-    deployed, after which configurations can be dynamically changed from input.
+    deployed. Configurations can then be dynamically set from input.
   </dd>
   <dl class="message-properties">
     <dt>payload <span class="property-type">string</span></dt>
-    <dd>The LED state.</dd>
+    <dd>The LED state. 'true' for on, 'false' for off.</dd>
   </dl>
   <dl class="message-properties">
     <dt>pin <span class="property-type">string</span></dt>
