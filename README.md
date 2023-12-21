@@ -15,7 +15,7 @@ The connection to your EdgePi's RPC Server.
 
 ## Inputs
 
-  - **payload** (*string*)<br>
+  - **payload** (*boolean*)<br>
   The LED state.
   - **pin** (*number*) <br>
 The LED pin on which to change state.
