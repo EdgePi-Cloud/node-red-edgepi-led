@@ -3,11 +3,14 @@
 ## EdgePi LED node that changes the state of LEDs on the EdgePi.
 
 ## Install
+
 Install normally through the node-red editor or install with npm in your node-red directory
-(typically located  at `~/node.red`) by running the following command:
+(typically located at `~/node.red`) by running the following command:
+
 ```
 npm install @edgepi-cloud/node-red-edgepi-led
 ```
+
 ## Properties
 
 **RPC Server** <br>
@@ -22,16 +25,12 @@ Whether to configure LEDs based on configurations from the editor or from input 
   Any message can be used to trigger this node.
 
 - When configuration is set to input received:
-  - **topic** (*string*)<br>
-  The name of the EdgePi LED method you want to call.
-  - **payload** (*JSON* `{"argName":"argValue"..}`)<br>
-A JSON object consisting of the method's argument parameters as properties and their respective values.
+  - **topic** (_string_)<br>
+    The name of the EdgePi LED method you want to call.
+  - **payload** (_JSON_ `{"argName":"argValue"..}`)<br>
+    A JSON object consisting of the method's argument parameters as properties and their respective values.
 
 ## Outputs
 
-- **payload** (*string*)<br>
-A success message stating the configuration of the given LED.
-
-
-**NOTE:** Currently, EdgePi nodes are only available on x86 systems.
-
+- **payload** (_string_)<br>
+  A success message stating the configuration of the given LED.
