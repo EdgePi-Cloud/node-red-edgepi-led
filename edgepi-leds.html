@@ -23,8 +23,8 @@
       const tcpField = document.querySelector(".form-row.tcp");
       const ledState = document.querySelector(".form-row.ledState");
       const ledPinField = document.querySelector(".form-row.ledPin");
-      const ledOn = document.getElementById("node-input-turnOn");
-      const ledOff = document.getElementById("node-input-turnOff");
+      const ledOn = document.getElementById("node-input-led-on");
+      const ledOff = document.getElementById("node-input-led-off");
 
       if (this.ledState == true) {
         ledOn.checked = true;
@@ -42,7 +42,7 @@
       ledOff.addEventListener("change", updateEditor);
     },
     oneditsave: function () {
-      this.ledState = document.getElementById("node-input-turnOn").checked
+      this.ledState = document.getElementById("node-input-led-on").checked
         ? true
         : false;
     },
@@ -87,13 +87,13 @@
 
     .form-row.state input[type="radio"] {
       width: 40px !important;
+      margin: 0;
     }
 
-    label[for="node-input-turnOn"],
-    label[for="node-input-turnOff"] {
+    label[for="node-input-led-on"],
+    label[for="node-input-led-off"] {
       width: 60px !important;
     }
-
   </style>
 
   <div class="form-row">
@@ -127,30 +127,25 @@
     <input
       type="radio"
       name="ledState"
-      id="node-input-turnOn"
-      value="turnOn"
+      id="node-input-led-on"
+      value="true"
       checked
     />
-    <label for="node-input-turnOn">On</label>
-    <input
-      type="radio"
-      name="ledState"
-      id="node-input-turnOff"
-      value="turnOff"
-    />
-    <label for="node-input-turnOff">Off</label>
+    <label for="node-input-led-on">On</label>
+    <input type="radio" name="ledState" id="node-input-led-off" value="false" />
+    <label for="node-input-led-off">Off</label>
   </div>
   <div class="form-row ledPin">
     <label for="node-input-ledPin">Pin</label>
     <select id="node-input-ledPin">
-      <option value=1>LED1</option>
-      <option value=2>LED2</option>
-      <option value=3>LED3</option>
-      <option value=4>LED4</option>
-      <option value=5>LED5</option>
-      <option value=6>LED6</option>
-      <option value=7>LED7</option>
-      <option value=8>LED8</option>
+      <option value="1">LED1</option>
+      <option value="2">LED2</option>
+      <option value="3">LED3</option>
+      <option value="4">LED4</option>
+      <option value="5">LED5</option>
+      <option value="6">LED6</option>
+      <option value="7">LED7</option>
+      <option value="8">LED8</option>
     </select>
   </div>
 </script>

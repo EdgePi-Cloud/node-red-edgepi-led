@@ -10,13 +10,17 @@ module.exports = function (RED) {
       node.on("input", async function (msg, send, done) {
         node.status({ fill: "green", shape: "dot", text: "input received" });
         try {
-          ledPin = msg.pin ?? ledPin;
-          ledState = msg.payload ?? ledState;
+          ledPin = msg.pin || ledPin;
+          ledState =
+            msg.payload && typeof msg.payload == "boolean"
+              ? msg.payload
+              : ledState;
           const stateStr = ledState === true ? "turnOn" : "turnOff";
-          msg = {payload: await led[stateStr](ledPin-1)};
+
+          msg = { payload: await led[stateStr](ledPin - 1) };
         } catch (error) {
           console.error(error);
-          msg = {payload: error};
+          msg = { payload: error };
         }
         send(msg);
         done?.();
@@ -37,7 +41,7 @@ module.exports = function (RED) {
           text: "led initialized",
         });
         const stateStr = ledState === true ? "turnOn" : "turnOff";
-        console.info(await led[stateStr](ledPin-1));
+        console.info(await led[stateStr](ledPin - 1));
         return led;
       } catch (error) {
         console.error(error);
