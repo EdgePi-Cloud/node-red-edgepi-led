@@ -11,10 +11,7 @@ module.exports = function (RED) {
         node.status({ fill: "green", shape: "dot", text: "input received" });
         try {
           ledPin = msg.pin || ledPin;
-          ledState =
-            msg.payload && typeof msg.payload == "boolean"
-              ? msg.payload
-              : ledState;
+          ledState = typeof msg.payload === "boolean" ? msg.payload : ledState;
           const stateStr = ledState === true ? "turnOn" : "turnOff";
 
           msg = { payload: await led[stateStr](ledPin - 1) };
