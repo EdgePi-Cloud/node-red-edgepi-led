@@ -16,21 +16,30 @@ npm install @edgepi-cloud/node-red-edgepi-led
 **RPC Server** <br>
 The connection to your EdgePi's RPC Server.
 
-**Configure with**<br>
-Whether to configure LEDs based on configurations from the editor or from input received in the flow.
-
 ## Inputs
 
-- When configuration is set to the editor:
-  Any message can be used to trigger this node.
+- **payload** (_boolean_)<br>
+  The LED state.
+- **pin** (_number_) <br>
+  The LED pin on which to change state.
 
-- When configuration is set to input received:
-  - **topic** (_string_)<br>
-    The name of the EdgePi LED method you want to call.
-  - **payload** (_JSON_ `{"argName":"argValue"..}`)<br>
-    A JSON object consisting of the method's argument parameters as properties and their respective values.
+Example input configuration:
+
+```
+msg {
+  "payload": true,
+  "pin": 1
+}
+```
 
 ## Outputs
 
 - **payload** (_string_)<br>
   A success message stating the configuration of the given LED.
+  Example output:
+
+```
+msg {
+  "payload": "Successfully turned on LEDPins.LED1."
+}
+```

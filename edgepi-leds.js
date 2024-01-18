@@ -1,51 +1,55 @@
-module.exports = function(RED) {
-    const rpc = require("@edgepi-cloud/edgepi-rpc")
+module.exports = function (RED) {
+  const rpc = require("@edgepi-cloud/edgepi-rpc");
 
-    function LEDNode(config) {
-        // Create node with user config
-        RED.nodes.createNode(this, config);
-        const node = this;
-        const ipc_transport = "ipc:///tmp/edgepi.pipe"
-        const tcp_transport = `tcp://${config.tcpAddress}:${config.tcpPort}`
-        const transport = (config.transport === "Network") ? tcp_transport : ipc_transport;
+  function LEDNode(config) {
+    RED.nodes.createNode(this, config);
+    const node = this;
+    let { ledState, ledPin } = config;
 
-        // Init new led
-        const led = new rpc.LEDService(transport);
-        if (led){
-            console.debug("LED node initialized on:", transport);
-            node.status({fill:"green", shape:"ring", text:"led initialized"});
+    initializeNode(config).then((led) => {
+      node.on("input", async function (msg, send, done) {
+        node.status({ fill: "green", shape: "dot", text: "input received" });
+        try {
+          ledPin = msg.pin || ledPin;
+          ledState = typeof msg.payload === "boolean" ? msg.payload : ledState;
+          const stateStr = ledState === true ? "turnOn" : "turnOff";
+
+          msg = { payload: await led[stateStr](ledPin - 1) };
+        } catch (error) {
+          console.error(error);
+          msg = { payload: error };
         }
+        send(msg);
+        done?.();
+      });
+    });
 
-        // Input event listener
-        node.on('input', async function (msg, send, done) {
-            node.status({fill:"green", shape:"dot", text:"input recieved"});
-            try{
-                // Get configurations
-                const method = (config.config === "Editor") ? config.method : msg.topic;
-                const ledPin = (config.config === "Editor") ? config.ledPin : msg.payload.ledPin;
-
-                // Call method through RPC
-                const response = await led[method](rpc.LEDPins[ledPin]);
-                msg.payload = response;
-                
-            }
-            catch(err) {
-                console.error(err);
-                msg.payload = err;
-            }
-            // Send message payload
-            send(msg);
-            if (done) {
-                done();
-            }
-        })
-
-        // handle exit
-        node.on("close", function(done) {
-            node.status({fill:"grey", shape:"ring", text:"led terminated"});
-            
-             done();
+    async function initializeNode(config) {
+      const transport =
+        config.transport === "Network"
+          ? `tcp://${config.tcpAddress}:${config.tcpPort}`
+          : "ipc:///tmp/edgepi.pipe";
+      try {
+        const led = new rpc.LEDService(transport);
+        console.info("LED node initialized on:", transport);
+        node.status({
+          fill: "green",
+          shape: "ring",
+          text: "led initialized",
         });
+        const stateStr = ledState === true ? "turnOn" : "turnOff";
+        console.info(await led[stateStr](ledPin - 1));
+        return led;
+      } catch (error) {
+        console.error(error);
+        node.status({
+          fill: "red",
+          shape: "ring",
+          text: "Initialization error",
+        });
+      }
     }
-    RED.nodes.registerType("led", LEDNode);
-}
+  }
+
+  RED.nodes.registerType("led", LEDNode);
+};
