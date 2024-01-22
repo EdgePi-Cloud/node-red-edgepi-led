@@ -10,10 +10,13 @@ module.exports = function (RED) {
       node.on("input", async function (msg, send, done) {
         node.status({ fill: "green", shape: "dot", text: "input received" });
         try {
-          ledPin = msg.pin || ledPin;
-          ledState = typeof msg.payload === "boolean" ? msg.payload : ledState;
+          if (msg.pin) {
+            ledPin = msg.pin;
+          }
+          if (typeof msg.payload === "boolean") {
+            ledState = msg.payload;
+          }
           const stateStr = ledState === true ? "turnOn" : "turnOff";
-
           msg = { payload: await led[stateStr](ledPin - 1) };
         } catch (error) {
           console.error(error);
