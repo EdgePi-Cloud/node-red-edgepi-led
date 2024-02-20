@@ -1,0 +1,67 @@
+[
+    {
+        "id": "362ffef52cd1832e",
+        "type": "led",
+        "z": "aa7eb918109cfafe",
+        "name": "",
+        "transport": "Local",
+        "ledState": true,
+        "ledPin": "1",
+        "tcpAddress": "",
+        "tcpPort": "5555",
+        "x": 350,
+        "y": 660,
+        "wires": [
+            [
+                "3e77fdd040e41df3"
+            ]
+        ]
+    },
+    {
+        "id": "3e77fdd040e41df3",
+        "type": "debug",
+        "z": "aa7eb918109cfafe",
+        "name": "debug led output",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 730,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "384465f06d9c4409",
+        "type": "inject",
+        "z": "aa7eb918109cfafe",
+        "name": "",
+        "props": [
+            {
+                "p": "pin",
+                "v": "1",
+                "vt": "num"
+            },
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "false",
+        "payloadType": "bool",
+        "x": 90,
+        "y": 700,
+        "wires": [
+            [
+                "362ffef52cd1832e"
+            ]
+        ]
+    }
+]
